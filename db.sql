@@ -1,8 +1,8 @@
-create user bitexiu with password 'bitexiu' ;
+create user bitexiu with password 'bitexiu';
 
 ALTER USER bitexiu WITH PASSWORD 'bitexiu';
 
-create database bitexiu with encoding='utf8' ;
+create database bitexiu with encoding='utf8';
 
 grant all privileges on database bitexiu to bitexiu ;
 

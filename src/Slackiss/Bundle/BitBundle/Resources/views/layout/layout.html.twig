@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh_CN" {% block html_attr %}{% endblock html_attr %}>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('bundles/slackissbit/vendor/bootstrap-3.2.0/css/bootstrap.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('bundles/slackissbit/vendor/jquery-ui-themes-1.10.4/themes/blitzer/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/slackissbit/css/style.css') }}">
+    <!--[if lt IE 9]>
+    <script src="{{asset('bundles/slackissbit/vendor/html5shiv.min.js')}}"></script>
+    <script src="{{asset('bundles/slackissbit/vendor/respond.min.js')}}"></script>
+    <![endif]-->
+    {% block header %}{% endblock %}
+    {% block top %} {% endblock %}
+</head>
+<body{% block bodyattr %}{% endblock bodyattr %}>
+{% if app.user %}
+    <div class="header">
+        <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{ path('welcome') }}">比特秀</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active">
+
+                                <a href="#">
+                                    主页</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} <span
+                                            class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ path('fos_user_change_password') }}">修改密码</a></li>
+                                    <li><a href="{{ path('fos_user_security_logout') }}">注销</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+        </div>
+    </div>
+{% endif %}
+<div class="body">
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+</div>
+<div class="footer">
+    <div class="container">
+        <div class="clear">
+            <div class="pull-right">
+                关于 加入
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ asset('bundles/slackissbit/vendor/jquery-1.11.1.min.js') }}"></script>
+<script src="{{ asset('bundles/slackissbit/vendor/bootstrap-3.2.0/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('bundles/slackissbit/vendor/jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js') }}"></script>
+<script src="{{ asset('bundles/slackissbit/vendor/jquery.tools.min.js') }}"></script>
+{% block footer %}{% endblock %}
+{% block bottom %}{% endblock %}
+</body>
+</html>

@@ -30,7 +30,8 @@
         "Trsteel/ckeditor-bundle": "~1.4"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "phpunit/phpunit": "4.1.*"
     },
     "scripts": {
         "post-root-package-install": [

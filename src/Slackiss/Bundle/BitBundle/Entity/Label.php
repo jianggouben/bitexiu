@@ -87,7 +87,7 @@ class Label
     /**
      * @var string
      *
-     * @ORM\Column(name="remark", type="text",nullbale=true)
+     * @ORM\Column(name="remark", type="text",nullable=true)
      */
     private $remark;
 

@@ -260,4 +260,27 @@ class LabelType
     {
         return $this->remark;
     }
+
+    /**
+     * Set sequence
+     *
+     * @param integer $sequence
+     * @return LabelType
+     */
+    public function setSequence($sequence)
+    {
+        $this->sequence = $sequence;
+
+        return $this;
+    }
+
+    /**
+     * Get sequence
+     *
+     * @return integer 
+     */
+    public function getSequence()
+    {
+        return $this->sequence;
+    }
 }

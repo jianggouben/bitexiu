@@ -136,10 +136,14 @@ knp_gaufrette:
         image_adapter:
             local:
                 directory: %kernel.root_dir%/../web/assets/image/
-
+        meta_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/assets/meta/
     filesystems:
         image_fs:
             adapter:    image_adapter
+        meta_fs:
+            adapter:    meta_adapter
 
 vich_uploader:
     db_driver:  orm
@@ -147,6 +151,12 @@ vich_uploader:
     gaufrette:  true
     storage:    vich_uploader.storage.gaufrette
     mappings:
+        meta:
+            uri_prefix: /assets/meta
+            namer: vich_uploader.namer_uniqid
+            upload_destination: meta_fs
+            delete_on_remove: true
+            inject_on_load: true
         image:
             uri_prefix: /assets/image
             namer: vich_uploader.namer_uniqid

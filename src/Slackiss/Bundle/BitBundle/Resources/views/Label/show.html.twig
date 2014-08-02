@@ -1,0 +1,76 @@
+{% extends "SlackissBitBundle:layout:layout.html.twig" %}
+
+{% block title %}查看标签{% endblock %}
+
+{% block body -%}
+    <h1>查看标签</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>名字</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>描述</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>创建时间</th>
+                <td>{{ entity.created |date('Y-m-d H:i')}}</td>
+            </tr>
+            <tr>
+                <th>修改时间</th>
+                <td>{{ entity.modified|date('Y-m-d H:i') }}</td>
+            </tr>
+            <tr>
+                <th>状态</th>
+                <td>{{ entity.status }}</td>
+            </tr>
+            <tr>
+                <th>可用性</th>
+                <td>{{ entity.enabled?'可用':'禁用' }}</td>
+            </tr>
+            <tr>
+                <th>备注</th>
+                <td>{{ entity.remark }}</td>
+            </tr>
+            <tr>
+                <th>序号</th>
+                <td>{{ entity.sequence }}</td>
+            </tr>
+            <tr>
+                <th>图片</th>
+                <td>
+                    {% if entity.image %}
+                        <a href="{{vich_uploader_asset(entity,'attach')}}" target="_blank">
+                            <img src="{{vich_uploader_asset(entity,'attach')|imagine_filter('thumbnail')}}"/>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>内容</th>
+                <td>{{ entity.html |raw}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('manager_label') }}">
+           返回
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('manager_label_edit', { 'id': entity.id }) }}">
+            修改
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

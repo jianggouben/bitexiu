@@ -283,4 +283,11 @@ class LabelType
     {
         return $this->sequence;
     }
+
+    function __toString()
+    {
+        return $this->getName();
+    }
+
+
 }

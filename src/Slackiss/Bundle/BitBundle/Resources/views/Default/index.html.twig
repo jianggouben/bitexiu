@@ -4,4 +4,17 @@
 
 {% block body %}
 比特秀
+
+{% if is_granted('ROLE_ADMIN') %}
+<a href="">管理员面版</a>
+{% endif %}
+
+{% if is_granted('ROLE_USER') %}
+<a href="">个人中心</a>
+{% endif %}
+
+{% if is_granted('ROLE_DESIGNER') %}
+<a href="">搭配师中心</a>
+{% endif %}
+
 {% endblock %}

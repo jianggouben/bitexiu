@@ -37,18 +37,61 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active">
-
+                            <li >
                                 <a href="#">
                                     主页</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
+                            {% if nav_active|default('')== 'nav_active_label' %}
+                           <li class="dropdown active">
+                                {% else %}
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} <span
+                            {% endif %}
+
+                                <a href="{{ path('manager_label') }}" class="dropdown-toggle" data-toggle="dropdown">标签管理 <span
                                             class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ path('fos_user_change_password') }}">修改密码</a></li>
-                                    <li><a href="{{ path('fos_user_security_logout') }}">注销</a></li>
+                                    <li><a href="{{ path('manager_label_new') }}">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                            添加标签</a></li>
+                                    <li><a href="{{ path('manager_label') }}">
+                                            <span class="glyphicon glyphicon-list"></span>
+                                            标签管理</a></li>
+                                    <li class="divider hide"></li>
+                                    <li class="hide">><a href="#">Separated link</a></li>
+                                </ul>
+                            </li>
+                            {% if nav_active|default('')== 'nav_active_labelType' %}
+                            <li class="dropdown active">
+                                {% else %}
+                            <li class="dropdown">
+                                {% endif %}
+                                <a href="{{ path('manager_labelType') }}" class="dropdown-toggle" data-toggle="dropdown">标签类型管理 <span
+                                            class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ path('manager_labelType_new') }}">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                            添加标签类型</a></li>
+                                    <li><a href="{{ path('manager_labelType') }}">
+                                            <span class="glyphicon glyphicon-list"></span>
+                                            标签类型管理</a></li>
+                                    <li class="divider hide"></li>
+                                    <li class="hide">><a href="#">Separated link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    {{ app.user.username }} <span
+                                            class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ path('fos_user_change_password') }}">
+                                            <span class="glyphicon glyphicon-lock"></span>
+                                            修改密码</a></li>
+                                    <li><a href="{{ path('fos_user_security_logout') }}">
+                                            <span class="glyphicon glyphicon-log-out"></span>
+                                            注销</a></li>
                                 </ul>
                             </li>
                         </ul>

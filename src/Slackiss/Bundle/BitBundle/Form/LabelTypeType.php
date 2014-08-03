@@ -16,29 +16,21 @@ class LabelTypeType extends AbstractType
     {
         $builder
             ->add('name', 'text', [
-                'label' => '标签类型名字',
+                'label' => '名称',
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
-
-            //   ->add('status')
-            //   ->add('enabled')
-            //  ->add('created')
-            //  ->add('modified')
-            ->add('sequence')
+            ->add('sequence', null, [
+                'label' => '权重',
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('description', 'textarea', [
-                'label' => '标签类型介绍',
-                'required' => true,
-                'attr' => [
-                    'rows' => 8,
-                    'class' => 'form-control'
-                ]
-            ])
-
-            ->add('remark', 'textarea', [
-                'label' => '标签类型评论',
+                'label' => '说明',
                 'required' => true,
                 'attr' => [
                     'rows' => 8,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Slackiss\Bundle\BitBundle\Controller;
+namespace Slackiss\Bundle\BitBundle\Controller\Manager;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,15 +29,12 @@ class LabelTypeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-
         $page = $request->query->get('page',1);
         $repo = $em->getRepository('SlackissBitBundle:LabelType');
         $query = $repo->createQueryBuilder('a')
-            ->orderBy('a.modified','desc')
+            ->orderBy('a.sequence','desc')
             ->getQuery();
         $entities = $this->get('knp_paginator')->paginate($query,$page,50);
-
-
 
         return array(
             'nav_active'=>'nav_active_labelType',
@@ -49,7 +46,7 @@ class LabelTypeController extends Controller
      *
      * @Route("/", name="manager_labelType_create")
      * @Method("POST")
-     * @Template("SlackissBitBundle:LabelType:new.html.twig")
+     * @Template("SlackissBitBundle:Manager\LabelType:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -86,7 +83,9 @@ class LabelTypeController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => '创建'));
+        $form->add('submit', 'submit', array('label' => '保存','attr'=>[
+            'class'=>'btn btn-primary'
+        ]));
 
         return $form;
     }
@@ -124,7 +123,7 @@ class LabelTypeController extends Controller
         $entity = $em->getRepository('SlackissBitBundle:LabelType')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find LabelType entity.');
+            throw $this->createNotFoundException('没找到这个标签类型');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -150,7 +149,7 @@ class LabelTypeController extends Controller
         $entity = $em->getRepository('SlackissBitBundle:LabelType')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find LabelType entity.');
+            throw $this->createNotFoundException('没找到这个标签');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -178,7 +177,9 @@ class LabelTypeController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => '修改'));
+        $form->add('submit', 'submit', array('label' => '保存','attr'=>[
+            'class'=>'btn btn-primary'
+        ]));
 
         return $form;
     }
@@ -187,7 +188,7 @@ class LabelTypeController extends Controller
      *
      * @Route("/{id}", name="manager_labelType_update")
      * @Method("PUT")
-     * @Template("SlackissBitBundle:LabelType:edit.html.twig")
+     * @Template("SlackissBitBundle:Manager\LabelType:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -196,7 +197,7 @@ class LabelTypeController extends Controller
         $entity = $em->getRepository('SlackissBitBundle:LabelType')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find LabelType entity.');
+            throw $this->createNotFoundException('没找到这个标签');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -204,7 +205,7 @@ class LabelTypeController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $entity->setModified( new \DateTime());
+            $entity->setModified(new \DateTime());
             $em->flush();
 
             return $this->redirect($this->generateUrl('manager_labelType_edit', array('id' => $id)));
@@ -233,11 +234,10 @@ class LabelTypeController extends Controller
             $entity = $em->getRepository('SlackissBitBundle:LabelType')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find LabelType entity.');
+                throw $this->createNotFoundException('没找到这个标签类型');
             }
-            $entity->setModified( new \DateTime());
-            $entity->setEnabled( false);
-         //   $em->remove($entity);
+            $entity->setModified(new \DateTime());
+            $entity->setEnabled(false);
             $em->flush();
         }
 
@@ -256,7 +256,9 @@ class LabelTypeController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('manager_labelType_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => '删除'))
+                    ->add('submit', 'submit', array('label' => '删除','attr'=>[
+                        'class'=>'btn btn-danger'
+                    ]))
             ->getForm()
         ;
     }

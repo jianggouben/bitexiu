@@ -1,6 +1,6 @@
 <?php
 
-namespace Slackiss\Bundle\BitBundle\Controller;
+namespace Slackiss\Bundle\BitBundle\Controller\Manager;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

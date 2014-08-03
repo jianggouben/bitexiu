@@ -1,0 +1,54 @@
+{% extends "SlackissBitBundle:layout:layout.html.twig" %}
+
+{% block title %}标签类型管理{% endblock %}
+
+{% block body -%}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>名称</th>
+      <th>描述</th>
+      <th>状态</th>
+      <th>序号</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entity in entities %}
+    <tr>
+      <td><a href="{{ path('manager_labelType_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+      <td>{{ entity.name }}</td>
+      <td>{{ entity.description }}</td>
+      <td>{{ entity.enabled?'可用':'禁用' }}</td>
+      <td>{{ entity.sequence }}</td>
+      <td>
+        <a href="{{ path('manager_labelType_show', { 'id': entity.id }) }}">
+          <button class="btn btn-default">
+          查看
+          </button>
+        </a>
+        <a href="{{ path('manager_labelType_edit', { 'id': entity.id }) }}">
+          <button class="btn btn-default">
+          修改
+          </button>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan=6>
+        <div class="clearfix">
+          <div class="pull-right">
+            <a href="{{path('manager_labelType_new')}}"><button class="btn btn-primary">创建</button></a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+{{ knp_pagination_render(entities) }}
+{% endblock %}

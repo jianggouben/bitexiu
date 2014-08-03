@@ -1,6 +1,6 @@
 <?php
 
-namespace Slackiss\Bundle\BitBundle\Controller;
+namespace Slackiss\Bundle\BitBundle\Controller\Manager;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,30 +29,25 @@ class LabelController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-
-
         $page = $request->query->get('page',1);
         $repo = $em->getRepository('SlackissBitBundle:Label');
         $query = $repo->createQueryBuilder('a')
-            ->orderBy('a.modified','desc')
+            ->orderBy('a.sequence','desc')
             ->getQuery();
         $entities = $this->get('knp_paginator')->paginate($query,$page,50);
-
-
-
-
 
         return array(
             'nav_active'=>'nav_active_label',
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Label entity.
      *
      * @Route("/", name="manager_label_create")
      * @Method("POST")
-     * @Template("SlackissBitBundle:Label:new.html.twig")
+     * @Template("SlackissBitBundle:Manager/Label:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -89,7 +84,9 @@ class LabelController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => '创建'));
+        $form->add('submit', 'submit', array('label' => '保存','attr'=>[
+            'class'=>'btn btn-primary'
+        ]));
 
         return $form;
     }
@@ -123,11 +120,10 @@ class LabelController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('SlackissBitBundle:Label')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Label entity.');
+            throw $this->createNotFoundException('没找到这个标签');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -153,7 +149,7 @@ class LabelController extends Controller
         $entity = $em->getRepository('SlackissBitBundle:Label')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Label entity.');
+            throw $this->createNotFoundException('没找到这个标签');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -181,7 +177,9 @@ class LabelController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => '修改'));
+        $form->add('submit', 'submit', array('label' => '保存','attr'=>[
+            'class'=>'btn btn-primary'
+        ]));
 
         return $form;
     }
@@ -190,7 +188,7 @@ class LabelController extends Controller
      *
      * @Route("/{id}", name="manager_label_update")
      * @Method("PUT")
-     * @Template("SlackissBitBundle:Label:edit.html.twig")
+     * @Template("SlackissBitBundle:Manager/Label:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -199,7 +197,7 @@ class LabelController extends Controller
         $entity = $em->getRepository('SlackissBitBundle:Label')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Label entity.');
+            throw $this->createNotFoundException('没找到这个标签');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -236,11 +234,10 @@ class LabelController extends Controller
             $entity = $em->getRepository('SlackissBitBundle:Label')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Label entity.');
+                throw $this->createNotFoundException('没找到这个标签');
             }
             $entity->setModified( new \DateTime());
             $entity->setEnabled( false);
-           // $em->remove($entity);
             $em->flush();
         }
 
@@ -259,7 +256,9 @@ class LabelController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('manager_label_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => '删除'))
+                    ->add('submit', 'submit', array('label' => '禁用','attr'=>[
+                        'class'=>'btn btn-danger'
+                    ]))
             ->getForm()
         ;
     }

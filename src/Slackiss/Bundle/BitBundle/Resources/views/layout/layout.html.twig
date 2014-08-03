@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh_CN" {% block html_attr %}{% endblock html_attr %}>
-<head>
+  <head>
     <meta charset="UTF-8"/>
     <title>{% block title %}{% endblock %}</title>
     <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}"/>
@@ -10,119 +10,95 @@
           href="{{ asset('bundles/slackissbit/vendor/jquery-ui-themes-1.10.4/themes/blitzer/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/slackissbit/css/style.css') }}">
     <!--[if lt IE 9]>
-    <script src="{{asset('bundles/slackissbit/vendor/html5shiv.min.js')}}"></script>
-    <script src="{{asset('bundles/slackissbit/vendor/respond.min.js')}}"></script>
-    <![endif]-->
+        <script src="{{asset('bundles/slackissbit/vendor/html5shiv.min.js')}}"></script>
+        <script src="{{asset('bundles/slackissbit/vendor/respond.min.js')}}"></script>
+        <![endif]-->
     {% block header %}{% endblock %}
     {% block top %} {% endblock %}
-</head>
-<body{% block bodyattr %}{% endblock bodyattr %}>
-{% if app.user %}
+  </head>
+  <body{% block bodyattr %}{% endblock bodyattr %}>
+    {% if app.user %}
     <div class="header">
-        <div class="container">
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="{{ path('welcome') }}">比特秀</a>
-                    </div>
+      <div class="container">
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                      data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="{{ path('welcome') }}">比特秀</a>
+            </div>
 
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li >
-                                <a href="#">
-                                    主页</a></li>
-                            {% if nav_active|default('')== 'nav_active_label' %}
-                           <li class="dropdown active">
-                                {% else %}
-                            <li class="dropdown">
-                            {% endif %}
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li >
+                  <a href="#">
+                    主页</a></li>
+              </ul>
 
-                                <a href="{{ path('manager_label') }}" class="dropdown-toggle" data-toggle="dropdown">标签管理 <span
-                                            class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ path('manager_label_new') }}">
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                            添加标签</a></li>
-                                    <li><a href="{{ path('manager_label') }}">
-                                            <span class="glyphicon glyphicon-list"></span>
-                                            标签管理</a></li>
-                                    <li class="divider hide"></li>
-                                    <li class="hide">><a href="#">Separated link</a></li>
-                                </ul>
-                            </li>
-                            {% if nav_active|default('')== 'nav_active_labelType' %}
-                            <li class="dropdown active">
-                                {% else %}
-                            <li class="dropdown">
-                                {% endif %}
-                                <a href="{{ path('manager_labelType') }}" class="dropdown-toggle" data-toggle="dropdown">标签类型管理 <span
-                                            class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ path('manager_labelType_new') }}">
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                            添加标签类型</a></li>
-                                    <li><a href="{{ path('manager_labelType') }}">
-                                            <span class="glyphicon glyphicon-list"></span>
-                                            标签类型管理</a></li>
-                                    <li class="divider hide"></li>
-                                    <li class="hide">><a href="#">Separated link</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+              <ul class="nav navbar-nav navbar-right">
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle"
+                     data-toggle="dropdown">系统配置 <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ path('manager_labelType') }}">
+                        标签类型</a></li>
+                    <li><a href="{{ path('manager_label') }}">
+                        标签管理</a></li>
+                  </ul>
+                </li>
+                {% endif %}
 
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    {{ app.user.username }} <span
-                                            class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ path('fos_user_change_password') }}">
-                                            <span class="glyphicon glyphicon-lock"></span>
-                                            修改密码</a></li>
-                                    <li><a href="{{ path('fos_user_security_logout') }}">
-                                            <span class="glyphicon glyphicon-log-out"></span>
-                                            注销</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container-fluid -->
-            </nav>
-        </div>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-user"></span>
+                    {{ app.user.username }}
+                    <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ path('fos_user_change_password') }}">
+                        <span class="glyphicon glyphicon-lock"></span>
+                        修改密码</a></li>
+                    <li><a href="{{ path('fos_user_security_logout') }}">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        注销</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+          </div>
+          <!-- /.container-fluid -->
+        </nav>
+      </div>
     </div>
-{% endif %}
-<div class="body">
-    <div class="container">
+    {% endif %}
+    <div class="body">
+      <div class="container">
         {% block body %}
         {% endblock %}
+      </div>
     </div>
-</div>
-<div class="footer">
-    <div class="container">
+    <div class="footer">
+      <div class="container">
         <div class="clear">
-            <div class="pull-right">
-                关于 加入
-            </div>
+          <div class="pull-right">
+            关于 加入
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<script src="{{ asset('bundles/slackissbit/vendor/jquery-1.11.1.min.js') }}"></script>
-<script src="{{ asset('bundles/slackissbit/vendor/bootstrap-3.2.0/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('bundles/slackissbit/vendor/jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js') }}"></script>
-<script src="{{ asset('bundles/slackissbit/vendor/jquery.tools.min.js') }}"></script>
-{% block footer %}{% endblock %}
-{% block bottom %}{% endblock %}
-</body>
+    <script src="{{ asset('bundles/slackissbit/vendor/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ asset('bundles/slackissbit/vendor/bootstrap-3.2.0/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/slackissbit/vendor/jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js') }}"></script>
+    <script src="{{ asset('bundles/slackissbit/vendor/jquery.tools.min.js') }}"></script>
+    {% block footer %}{% endblock %}
+    {% block bottom %}{% endblock %}
+  </body>
 </html>

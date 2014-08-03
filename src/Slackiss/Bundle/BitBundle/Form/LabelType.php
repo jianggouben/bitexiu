@@ -21,38 +21,6 @@ class LabelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', [
-                'label' => '标签名字',
-                'required' => true,
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
-
-            ->add('sequence', null, [
-                'label' => '序号',
-                'required' => true,
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
-            ->add('attach', 'file', [
-                'label' => '标签图片',
-                'required' => !$this->isEdit,
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
-            ->add('html', 'ckeditor', array(
-                'label' => '内容',
-                'attr' => array(
-                    'class' => 'form-control'
-                ),
-                'filebrowser_image_browse_url' => array(
-                    'route' => 'elfinder',
-                    'route_parameters' => array(),
-                ),
-            ))
             ->add('labelType', null, [
                 'label' => '类型',
                 'required' => true,
@@ -60,20 +28,39 @@ class LabelType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('name', 'text', [
+                'label' => '名称',
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('sequence', null, [
+                'label' => '权重',
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('html', 'text', array(
+                'label' => 'HTML',
+                'attr' => array(
+                    'class'=> 'form-control',
+                    'rows'=>6
+                ),
+            ))
             ->add('description', 'textarea', [
-                'label' => '标签介绍',
+                'label' => '说明',
                 'required' => true,
                 'attr' => [
                     'rows' => 8,
                     'class' => 'form-control'
                 ]
             ])
-
-            ->add('remark', 'textarea', [
-                'label' => '评论',
-                'required' => true,
+            ->add('attach', 'file', [
+                'label' => '图片',
+                'required' => !$this->isEdit,
                 'attr' => [
-                    'rows' => 8,
                     'class' => 'form-control'
                 ]
             ]);

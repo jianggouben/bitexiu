@@ -149,7 +149,7 @@ class LabelTypeController extends Controller
         $entity = $em->getRepository('SlackissBitBundle:LabelType')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('没找到这个标签');
+            throw $this->createNotFoundException('没找到这个标签类型');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -197,7 +197,7 @@ class LabelTypeController extends Controller
         $entity = $em->getRepository('SlackissBitBundle:LabelType')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('没找到这个标签');
+            throw $this->createNotFoundException('没找到这个标签类型');
         }
 
         $deleteForm = $this->createDeleteForm($id);

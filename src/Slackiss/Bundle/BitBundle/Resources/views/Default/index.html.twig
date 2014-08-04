@@ -6,7 +6,7 @@
 比特秀
 
 {% if is_granted('ROLE_ADMIN') %}
-<a href="">管理员面版</a>
+<a href="{{path('member_list')}}">管理员面版</a>
 {% endif %}
 
 {% if is_granted('ROLE_USER') %}

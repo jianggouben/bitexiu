@@ -1,0 +1,17 @@
+ {% extends "SlackissBitBundle:layout:layout.html.twig" %}
+{% block title %}
+编辑员工:{{entity.username}}
+{% endblock %}
+{% block body %}
+<div class="page-header">
+  <h2>编辑员工 <small></small></h2>
+</div>
+<ol class="breadcrumb clearfix">
+  <li><a href="{{path('member_list')}}">员工管理</a></li>
+  <li class="active">员工列表</li>
+  <li class="pull-right">
+    <a href="{{path('member_edit',{id:entity.id})}}">编辑员工</a>
+  </li>
+</ol>
+{{form(form)}}
+{% endblock %}

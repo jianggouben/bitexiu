@@ -24,14 +24,14 @@ class LabelTypeType extends AbstractType
             ])
             ->add('sequence', null, [
                 'label' => '权重',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('description', 'textarea', [
                 'label' => '说明',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'rows' => 8,
                     'class' => 'form-control'

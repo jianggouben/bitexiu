@@ -23,7 +23,7 @@ class LabelType extends AbstractType
         $builder
             ->add('labelType', null, [
                 'label' => '类型',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control'
                 ]
@@ -37,21 +37,22 @@ class LabelType extends AbstractType
             ])
             ->add('sequence', null, [
                 'label' => '权重',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('html', 'text', array(
                 'label' => 'HTML',
-                'attr' => array(
+                    'required' => false,
+                    'attr' => [
                     'class'=> 'form-control',
                     'rows'=>6
-                ),
+                    ]
             ))
             ->add('description', 'textarea', [
                 'label' => '说明',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'rows' => 8,
                     'class' => 'form-control'
@@ -59,7 +60,7 @@ class LabelType extends AbstractType
             ])
             ->add('attach', 'file', [
                 'label' => '图片',
-                'required' => !$this->isEdit,
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control'
                 ]

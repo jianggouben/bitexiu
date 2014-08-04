@@ -3,22 +3,18 @@
 {% block title %}标签管理{% endblock %}
 
 {% block body -%}
-    <h1>标签管理</h1>
 
-    <table class="table">
+
+    <table class="table  table-striped table-hover table-condensed">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>编号</th>
                 <th>名字</th>
-                <th>描述</th>
-
-                <th>状态</th>
-                <th>可用性</th>
-                <th>备注</th>
                 <th>序号</th>
                 <th>图片</th>
-                <th>创建时间</th>
-                <th>修改时间</th>
+                <th>可用性</th>
+                <th>描述</th>
+                <th>备注</th>
                 <th>操作</th>
             </tr>
         </thead>
@@ -27,34 +23,47 @@
             <tr>
                 <td><a href="{{ path('manager_label_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
-                <td>{{ entity.description }}</td>
-                <td>{{ entity.status }}</td>
-                <td>{{ entity.enabled?'可用':'禁用' }}</td>
-                <td>{{ entity.remark }}</td>
                 <td>{{ entity.sequence }}</td>
                 <td>
                     {% if entity.image %}
-                <a href="{{vich_uploader_asset(entity,'attach')}}" target="_blank">
-                    <img src="{{vich_uploader_asset(entity,'attach')|imagine_filter('thumbnail')}}"/>
-                </a>
+                        <a href="{{vich_uploader_asset(entity,'attach')}}" target="_blank">
+                            <img src="{{vich_uploader_asset(entity,'attach')|imagine_filter('thumbnail')}}"/>
+                        </a>
                     {% endif %}
                 </td>
+                <td>{{ entity.enabled?'可用':'禁用' }}</td>
+                <td>{{ entity.description }}</td>
+                <td>{{ entity.remark }}</td>
 
-                <td>{{ entity.created|date('Y-m-d H:i') }}</td>
-                <td>{{ entity.modified |date('Y-m-d H:i')}}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('manager_label_show', { 'id': entity.id }) }}">查看</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('manager_label_edit', { 'id': entity.id }) }}">编辑</a>
-                    </li>
-                </ul>
+
+                        <a href="{{ path('manager_label_show', { 'id': entity.id }) }}">
+                            <button class="btn btn-default">
+                            查看
+                            </button>
+                        </a>
+
+                        <a href="{{ path('manager_label_edit', { 'id': entity.id }) }}">
+                            <button class="btn btn-default">
+                            修改
+                            </button>
+                        </a>
+
                 </td>
             </tr>
         {% endfor %}
         </tbody>
+        <tfoot>
+        <tr>
+            <td colspan=8>
+                <div class="clearfix">
+                    <div class="pull-right">
+                        <a href="{{path('manager_label_new')}}"><button class="btn btn-primary">创建</button></a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
     </table>
 
     {{ knp_pagination_render(entities) }}

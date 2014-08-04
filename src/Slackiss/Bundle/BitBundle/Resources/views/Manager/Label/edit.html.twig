@@ -3,16 +3,25 @@
 {% block title %}修改标签{% endblock %}
 
 {% block body -%}
-    <h1>修改标签</h1>
+    <h2>修改标签</h2>
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('manager_label') }}">
-            返回列表
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+
+
+
+
+    <div class="clearfix" style="margin:40px 0px">
+        <div class="pull-left">
+            <a href="{{ path('manager_label') }}">
+                <button class="btn btn-default">返回</button>
+            </a>
+        </div>
+
+        <div class="pull-right">
+            {{ form(delete_form) }}
+        </div>
+    </div>
+
+
 {% endblock %}

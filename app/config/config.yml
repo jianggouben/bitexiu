@@ -139,11 +139,16 @@ knp_gaufrette:
         meta_adapter:
             local:
                 directory: %kernel.root_dir%/../web/assets/meta/
+        collocation_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/assets/collocation/
     filesystems:
         image_fs:
             adapter:    image_adapter
         meta_fs:
             adapter:    meta_adapter
+        collocation_fs:
+            adapter:    collocation_adapter
 
 vich_uploader:
     db_driver:  orm
@@ -163,7 +168,12 @@ vich_uploader:
             upload_destination: image_fs
             delete_on_remove: true
             inject_on_load: true
-
+        collocation:
+            uri_prefix: /assets/image
+            namer: vich_uploader.namer_uniqid
+            upload_destination: collocation_fs
+            delete_on_remove: true
+            inject_on_load: true
 liip_imagine:
     resolvers:
        default:

@@ -23,6 +23,7 @@ class CollocationPlu
         $this->status   = true;
         $this->enabled  = true;
         $this->remark   = '';
+        $this->sequence = 0;
     }
     /**
      * @var integer
@@ -57,6 +58,10 @@ class CollocationPlu
      */
     private $price;
 
+    /**
+     * @ORM\Column(name="sequence",type="integer")
+     */
+    private $sequence;
     /**
      * @Assert\NotBlank(message="请上传图片")
      * @ORM\Column(name="image",type="string",length=255)
@@ -390,5 +395,28 @@ class CollocationPlu
     public function getCollocation()
     {
         return $this->collocation;
+    }
+
+    /**
+     * Set sequence
+     *
+     * @param integer $sequence
+     * @return CollocationPlu
+     */
+    public function setSequence($sequence)
+    {
+        $this->sequence = $sequence;
+
+        return $this;
+    }
+
+    /**
+     * Get sequence
+     *
+     * @return integer 
+     */
+    public function getSequence()
+    {
+        return $this->sequence;
     }
 }

@@ -22,6 +22,7 @@ class CollocationPicture
         $this->status = true;
         $this->enabled = true;
         $this->remark = "";
+        $this->sequence = 0;
     }
     /**
      * @var integer
@@ -141,6 +142,10 @@ class CollocationPicture
      */
     private $collocation;
 
+    /**
+     * @ORM\Column(name="sequence",type="integer")
+     */
+    private $sequence;
 
     /**
      * Get id
@@ -357,5 +362,28 @@ class CollocationPicture
     public function getCollocation()
     {
         return $this->collocation;
+    }
+
+    /**
+     * Set sequence
+     *
+     * @param integer $sequence
+     * @return CollocationPicture
+     */
+    public function setSequence($sequence)
+    {
+        $this->sequence = $sequence;
+
+        return $this;
+    }
+
+    /**
+     * Get sequence
+     *
+     * @return integer 
+     */
+    public function getSequence()
+    {
+        return $this->sequence;
     }
 }

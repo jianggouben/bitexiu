@@ -413,7 +413,7 @@ class CollocationPlu
     /**
      * Get sequence
      *
-     * @return integer 
+     * @return integer
      */
     public function getSequence()
     {

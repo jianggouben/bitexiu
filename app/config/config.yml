@@ -139,6 +139,9 @@ knp_gaufrette:
         picture_adapter:
             local:
                 directory: %kernel.root_dir%/../web/assets/picture/
+        plu_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/assets/plu/
         meta_adapter:
             local:
                 directory: %kernel.root_dir%/../web/assets/meta/
@@ -149,6 +152,8 @@ knp_gaufrette:
         image_fs:
             adapter:    image_adapter
         picture_fs:
+            adapter:    picture_adapter
+        plu_fs:
             adapter:    picture_adapter
         meta_fs:
             adapter:    meta_adapter
@@ -183,6 +188,12 @@ vich_uploader:
             uri_prefix: /assets/picture
             namer: vich_uploader.namer_uniqid
             upload_destination: picture_fs
+            delete_on_remove: true
+            inject_on_load: true
+        plu:
+            uri_prefix: /assets/plu
+            namer: vich_uploader.namer_uniqid
+            upload_destination: plu_fs
             delete_on_remove: true
             inject_on_load: true
 liip_imagine:

@@ -55,7 +55,8 @@ class Collocation
     private $name;
 
     /**
-     * @ORM\Column(name="image",type="string",length=255,nullable=true)
+     * @Assert\NotBlank(message="请上传图片")
+     * @ORM\Column(name="image",type="string",length=255)
      */
     protected $image;
 

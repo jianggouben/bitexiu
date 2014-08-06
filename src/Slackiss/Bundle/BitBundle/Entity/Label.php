@@ -387,4 +387,11 @@ class Label
     {
         return $this->html;
     }
+
+    function __toString()
+    {
+        return $this->name;
+    }
+
+
 }

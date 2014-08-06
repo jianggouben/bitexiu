@@ -33,6 +33,8 @@ class LabelTypeController extends Controller
         $repo = $em->getRepository('SlackissBitBundle:LabelType');
         $query = $repo->createQueryBuilder('a')
             ->orderBy('a.sequence','desc')
+            ->where('a.status = :status')
+            ->setParameters(array('status'=>true))
             ->getQuery();
         $entities = $this->get('knp_paginator')->paginate($query,$page,50);
 
@@ -237,7 +239,7 @@ class LabelTypeController extends Controller
                 throw $this->createNotFoundException('没找到这个标签类型');
             }
             $entity->setModified(new \DateTime());
-            $entity->setEnabled(false);
+            $entity->setStatus(false);
             $em->flush();
         }
 

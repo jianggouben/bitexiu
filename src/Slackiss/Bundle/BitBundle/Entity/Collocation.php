@@ -593,4 +593,11 @@ class Collocation
     {
         $this->plus->removeElement($plus);
     }
+
+    function __toString()
+    {
+         return $this->name;
+    }
+
+
 }

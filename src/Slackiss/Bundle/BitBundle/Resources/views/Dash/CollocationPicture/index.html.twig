@@ -1,0 +1,65 @@
+{% extends "SlackissBitBundle:layout:layout.html.twig" %}
+
+{% block title %}搭配图片管理{% endblock %}
+{% block body -%}
+    <h2>搭配图片列表</h2>
+
+    <table class="table  table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+
+                <th>可用性</th>
+
+                <th>权重</th>
+                <th>描述</th>
+                <th>图片</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('dash_collocationPicture_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.name }}</td>
+
+
+                <td>{{ entity.enabled?'可用':'禁用' }}</td>
+
+                <td>{{ entity.sequence }}</td>
+                <td>{{ entity.description }}</td>
+                <td>{{ entity.image }}</td>
+                <td>
+
+                        <a href="{{ path('dash_collocationPicture_show', { 'id': entity.id }) }}">
+                            <button class="btn btn-default">
+                                查看
+                            </button>
+                        </a>
+
+                        <a href="{{ path('dash_collocationPicture_edit', { 'id': entity.id }) }}">
+                            <button class="btn btn-default">
+                                修改
+                            </button>
+                        </a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan=7>
+                <div class="clearfix">
+                    <div class="pull-right">
+                        <a href="{{path('dash_collocationPicture_new')}}"><button class="btn btn-primary">创建</button></a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+    {{ knp_pagination_render(entities) }}
+    {% endblock %}

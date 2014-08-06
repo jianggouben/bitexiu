@@ -1,0 +1,59 @@
+{% extends "SlackissBitBundle:layout:layout.html.twig" %}
+
+{% block title %}查看搭配图片-{{ entity.name }}{% endblock %}
+
+{% block body -%}
+    <h2>查看搭配图片</h2>
+
+
+    <table class="table  table-striped table-hover table-condensed">
+        <tbody>
+            <tr>
+                <th>编号</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>名称</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+
+
+
+            <tr>
+                <th>可用性</th>
+                <td>{{ entity.enabled?'可用':'禁用' }}</td>
+            </tr>
+
+            <tr>
+                <th>权重</th>
+                <td>{{ entity.sequence }}</td>
+            </tr>
+            <tr>
+                <th>图片</th>
+                <td>{{ entity.image }}</td>
+            </tr>
+            <tr>
+                <th>描述</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <div class="clearfix">
+        <div class="pull-left">
+            <a href="{{ path('dash_collocationPicture_edit', { 'id': entity.id }) }}">
+                <button class="btn btn-primary">修改</button>
+            </a>
+            <a href="{{ path('dash_collocationPicture') }}">
+                <button class="btn btn-primary">返回</button>
+            </a>
+        </div>
+        <div class="pull-right">
+            {{ form(delete_form) }}
+        </div>
+    </div>
+
+
+
+{% endblock %}

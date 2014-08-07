@@ -30,7 +30,16 @@
             </tr>
             <tr>
                 <th>图片</th>
-                <td>{{ entity.image }}</td>
+                <td>
+                    {% if entity.image %}
+
+                        <a href="{{vich_uploader_asset(entity,'attach')}}" target="_blank">
+                            <img src="{{vich_uploader_asset(entity,'attach')|imagine_filter('thumbnail')}}"/>
+                        </a>
+
+
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>描述</th>

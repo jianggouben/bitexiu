@@ -1,3 +1,4 @@
+{% extends 'form_div_layout.html.twig' %}
 {% block form_row %}
 {% spaceless %}
 
@@ -8,16 +9,18 @@
 <div class="form-group {{macro.hasErrors(form)}}">
 
   {% if errors is defined and errors|length > 0 %}
-  {{ form_label(form,null,{'label_attr':{'class':'control-label',}}) }}
+  {{ form_label(form,null,{'label_attr':{'class':'col-sm-2  control-label',}}) }}
   <span class="help-block" style="display:inline">
     {% for error in errors %}
     {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}
     {% endfor %}
   </span>
   {% else %}
-  {{ form_label(form,null,{'label_attr':{'class':'control-label',}}) }}
+  {{ form_label(form,null,{'label_attr':{'class':'col-sm-2  control-label',}}) }}
   {% endif %}
+    <div class="col-sm-10">
   {{ form_widget(form, _context) }}
+   </div>
 </div>
 
 {% endspaceless %}

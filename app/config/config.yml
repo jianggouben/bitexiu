@@ -154,7 +154,7 @@ knp_gaufrette:
         picture_fs:
             adapter:    picture_adapter
         plu_fs:
-            adapter:    picture_adapter
+            adapter:    plu_adapter
         meta_fs:
             adapter:    meta_adapter
         collocation_fs:
@@ -203,6 +203,10 @@ liip_imagine:
 
     filter_sets:
         cache: ~
+        thumbnail_mini:
+            quality: 75
+            filters:
+                thumbnail: { size: [64, 64], mode: outbound }
         thumbnail:
             quality: 75
             filters:

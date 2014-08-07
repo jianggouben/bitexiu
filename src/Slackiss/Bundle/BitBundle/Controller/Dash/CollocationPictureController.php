@@ -183,7 +183,7 @@ class CollocationPictureController extends Controller
     */
     private function createEditForm(CollocationPicture $entity)
     {
-        $form = $this->createForm(new CollocationPictureType(), $entity, array(
+        $form = $this->createForm(new CollocationPictureType(true), $entity, array(
             'action' => $this->generateUrl('dash_collocationPicture_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -280,7 +280,7 @@ class CollocationPictureController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('dash_collocationPicture_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => '禁用','attr'=>[
+            ->add('submit', 'submit', array('label' => '删除','attr'=>[
                 'class'=>'btn btn-danger'
             ]))
             ->getForm()

@@ -87,9 +87,7 @@ class CollocationController extends Controller
         $form = $this->createForm(new CollocationType(), $entity, array(
             'action' => $this->generateUrl('dash_collocation_create'),
             'method' => 'POST',
-            'attr' => [
-                'class' => 'form-horizontal'
-            ]
+            'attr'=>array('class'=>'form-horizontal', 'role'=>'form')
         ));
 
         $form->add('submit', 'submit', array('label' => '保存','attr'=>[
@@ -117,6 +115,78 @@ class CollocationController extends Controller
         );
     }
 
+
+
+    /**
+     *publish a Collocation entity.
+     *
+     * @Route("/publish/{id}", name="dash_publish")
+     * @Method("GET")
+     */
+    public function publishAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('SlackissBitBundle:Collocation')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('没找到这个搭配.');
+        }
+        $current = $this->get('security.context')->getToken()->getUser();
+
+
+        if($current->getId()!==$entity->getMember()->getId()){
+            return  $this->redirect($this->generateUrl('dash_collocation'));
+        }
+        $entity->setModified( new \DateTime());
+        $entity->setState(Collocation::STATE_VERIFIED);
+        $em->flush();
+        return $this->redirect($this->generateUrl('dash_collocation'));
+    }
+
+
+    /**
+     *enable a Collocation entity.
+     *
+     * @Route("/enable/{id}", name="dash_enable")
+     * @Method("GET")
+     */
+    public function enableAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('SlackissBitBundle:Collocation')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('没找到这个搭配.');
+        }
+
+        $entity->setEnabled(true);
+        $entity->setModified( new \DateTime());
+        $em->flush();
+        return $this->redirect($this->generateUrl('dash_collocation'));
+    }
+    /**
+     *enable a Collocation entity.
+     *
+     * @Route("/disable/{id}", name="dash_disable")
+     * @Method("GET")
+     */
+    public function disableAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('SlackissBitBundle:Collocation')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('没找到这个搭配.');
+        }
+
+        $entity->setEnabled(false);
+        $entity->setModified( new \DateTime());
+        $em->flush();
+        return $this->redirect($this->generateUrl('dash_collocation'));
+    }
     /**
      * Finds and displays a Collocation entity.
      *
@@ -193,7 +263,7 @@ class CollocationController extends Controller
     */
     private function createEditForm(Collocation $entity)
     {
-        $form = $this->createForm(new CollocationType(), $entity, array(
+        $form = $this->createForm(new CollocationType(true), $entity, array(
             'action' => $this->generateUrl('dash_collocation_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -231,6 +301,10 @@ class CollocationController extends Controller
         if ($editForm->isValid()) {
             $current = $this->get('security.context')->getToken()->getUser();
             if($current->getId()===$entity->getMember()->getId()){
+
+                if($entity->getState()===Collocation::STATE_PUBLISHED){
+                    $entity->setState(Collocation::STATE_VERIFIED);
+                }
                 $entity->setModified( new \DateTime());
                 $em->flush();
             }
@@ -287,7 +361,7 @@ class CollocationController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('dash_collocation_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => '禁用','attr'=>[
+            ->add('submit', 'submit', array('label' => '删除','attr'=>[
                 'class'=>'btn btn-danger'
             ]))
             ->getForm()

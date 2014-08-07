@@ -32,8 +32,17 @@
                 <td>{{ entity.enabled?'可用':'禁用' }}</td>
             </tr>
             <tr>
-                <th>Image</th>
-                <td>{{ entity.image }}</td>
+                <th>图片</th>
+                <td>
+                    {% if entity.image %}
+
+                        <a href="{{vich_uploader_asset(entity,'attach')}}" target="_blank">
+                            <img src="{{vich_uploader_asset(entity,'attach')|imagine_filter('thumbnail')}}"/>
+                        </a>
+
+
+                    {% endif %}
+                </td>
             </tr>
 
 

@@ -8,6 +8,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CollocationType extends AbstractType
 {
+
+    protected $isEdit;
+
+    public function __construct($isEdit = false)
+    {
+        $this->isEdit = $isEdit;
+    }
+
+
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -24,7 +34,7 @@ class CollocationType extends AbstractType
             ))
             ->add('attach', 'file', [
                 'label' => '图片',
-                'required' => false,
+                'required' => !$this->isEdit,
                 'attr' => [
                     'class' => 'form-control'
                 ]
@@ -37,7 +47,13 @@ class CollocationType extends AbstractType
                 ]
             ))
 
-            ->add('hot')
+            ->add('hot', 'checkbox', array(
+                'label' => '热点',
+                'required' => false,
+                'attr' => [
+                    'class' => 'input-small'
+                ]
+            ))
             //   ->add('created')
             //  ->add('modified')
             //    ->add('status')
@@ -67,6 +83,7 @@ class CollocationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
+
             'data_class' => 'Slackiss\Bundle\BitBundle\Entity\Collocation'
         ));
     }

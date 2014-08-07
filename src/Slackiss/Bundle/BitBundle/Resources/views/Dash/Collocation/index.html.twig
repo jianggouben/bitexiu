@@ -31,7 +31,16 @@
                 <td>
                     {{ entity.state=='draft'?'草稿': entity.state=='published'?'发布':'确认' }}
                 </td>
-                <td>{{ entity.image }}</td>
+                <td>
+                    {% if entity.image %}
+
+                            <a href="{{vich_uploader_asset(entity,'attach')}}" target="_blank">
+                                <img src="{{vich_uploader_asset(entity,'attach')|imagine_filter('thumbnail_mini')}}"/>
+                            </a>
+
+
+                    {% endif %}
+                </td>
                 <td>
 
                         <a href="{{ path('dash_collocation_show', { 'id': entity.id }) }}">
@@ -46,7 +55,21 @@
                                 修改
                             </button>
                         </a>
+                    {% if entity.state == 'draft' %}
+                        <a href="{{ path('dash_publish', { 'id': entity.id }) }}">
+                            <button class="btn btn-default">发布</button>
+                        </a>
+                    {% endif %}
 
+                    {% if entity.enabled  %}
+                        <a href="{{ path('dash_disable', { 'id': entity.id }) }}">
+                            <button class="btn btn-default">禁用</button>
+                        </a>
+                    {% else %}
+                        <a href="{{ path('dash_enable', { 'id': entity.id }) }}">
+                            <button class="btn btn-default">启用</button>
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

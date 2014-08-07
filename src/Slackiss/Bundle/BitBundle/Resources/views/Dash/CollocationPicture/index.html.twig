@@ -29,7 +29,17 @@
 
                 <td>{{ entity.sequence }}</td>
                 <td>{{ entity.description }}</td>
-                <td>{{ entity.image }}</td>
+                <td>
+
+                    {% if entity.image %}
+
+                        <a href="{{vich_uploader_asset(entity,'attach')}}" target="_blank">
+                            <img src="{{vich_uploader_asset(entity,'attach')|imagine_filter('thumbnail_mini')}}"/>
+                        </a>
+
+
+                    {% endif %}
+                </td>
                 <td>
 
                         <a href="{{ path('dash_collocationPicture_show', { 'id': entity.id }) }}">

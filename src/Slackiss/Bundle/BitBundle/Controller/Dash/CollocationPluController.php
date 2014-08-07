@@ -190,7 +190,7 @@ class CollocationPluController extends Controller
     */
     private function createEditForm(CollocationPlu $entity)
     {
-        $form = $this->createForm(new CollocationPluType(), $entity, array(
+        $form = $this->createForm(new CollocationPluType(true), $entity, array(
             'action' => $this->generateUrl('dash_collocationPlu_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -281,7 +281,7 @@ class CollocationPluController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('dash_collocationPlu_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => '禁用','attr'=>[
+            ->add('submit', 'submit', array('label' => '删除','attr'=>[
                 'class'=>'btn btn-danger'
             ]))
             ->getForm()

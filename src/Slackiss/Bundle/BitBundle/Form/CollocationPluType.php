@@ -8,6 +8,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CollocationPluType extends AbstractType
 {
+
+
+    protected $isEdit;
+
+    public function __construct($isEdit = false)
+    {
+        $this->isEdit = $isEdit;
+    }
+
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -45,7 +54,7 @@ class CollocationPluType extends AbstractType
             ])
             ->add('attach', 'file', [
                 'label' => '图片',
-                'required' => false,
+                'required' => !$this->isEdit,
                 'attr' => [
                     'class' => 'form-control'
                 ]

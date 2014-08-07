@@ -8,7 +8,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CollocationPictureType extends AbstractType
 {
-        /**
+    protected $isEdit;
+
+    public function __construct($isEdit = false)
+    {
+        $this->isEdit = $isEdit;
+    }
+
+
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -25,7 +34,7 @@ class CollocationPictureType extends AbstractType
 
             ->add('attach', 'file', [
                 'label' => '图片',
-                'required' => true,
+                'required' => !$this->isEdit,
                 'attr' => [
                     'class' => 'form-control'
                 ]
@@ -39,7 +48,7 @@ class CollocationPictureType extends AbstractType
                 ]
             ])
 
-            ->add('collocation')
+
             ->add('description', 'textarea', [
                 'label' => '描述',
                 'required' => false,
@@ -48,6 +57,7 @@ class CollocationPictureType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('collocation')
         ;
     }
     

@@ -148,7 +148,7 @@ class CollocationController extends Controller
     /**
      *enable a Collocation entity.
      *
-     * @Route("/enable/{id}", name="dash_enable")
+     * @Route("/enable/{id}", name="dash_enable_collocation")
      * @Method("GET")
      */
     public function enableAction($id)
@@ -169,7 +169,7 @@ class CollocationController extends Controller
     /**
      *enable a Collocation entity.
      *
-     * @Route("/disable/{id}", name="dash_disable")
+     * @Route("/disable/{id}", name="dash_disable_collocation")
      * @Method("GET")
      */
     public function disableAction($id)
@@ -211,9 +211,34 @@ class CollocationController extends Controller
         }
 
 
+        $repoCollocationPlu = $em->getRepository('SlackissBitBundle:CollocationPlu');
+        $collocationPlus = $repoCollocationPlu->createQueryBuilder('a')
+            ->orderBy('a.modified','desc')
+            ->where('a.status = :status')
+            ->andWhere('a.member = :member')
+          //  ->andWhere('a.enabled = :enabled')
+            ->andWhere('a.collocation = :collocation')
+            ->setParameters(array('status'=>true,'member'=>$current->getId(),'collocation'=>$entity))
+            ->getQuery()
+            ->getResult();
+
+        $repoCollocationPiture = $em->getRepository('SlackissBitBundle:CollocationPicture');
+        $collocationPictures = $repoCollocationPiture->createQueryBuilder('a')
+            ->orderBy('a.modified','desc')
+            ->where('a.status = :status')
+            ->andWhere('a.member = :member')
+          //  ->andWhere('a.enabled = :enabled')
+            ->andWhere('a.collocation = :collocation')
+            ->setParameters(array('status'=>true,'member'=>$current->getId(),'collocation'=>$entity))
+            ->getQuery()
+            ->getResult();
+
+
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
+            'collocationPlus'=>$collocationPlus,
+            'collocationPictures'=>$collocationPictures,
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         );

@@ -15,6 +15,7 @@
 
                 <th>可用性</th>
                 <th>图片</th>
+                <th>所属搭配</th>
                 <th>操作</th>
             </tr>
         </thead>
@@ -40,6 +41,12 @@
                 </td>
                 <td>
 
+                    <a href="{{ path('dash_collocation_show', { 'id': entity.collocation.id }) }}">
+                        {{ entity.collocation?entity.collocation.name:'' }}
+                    </a>
+                </td>
+                <td>
+
                         <a href="{{ path('dash_collocationPlu_show', { 'id': entity.id }) }}">
                             <button class="btn btn-default">
                                 查看
@@ -51,7 +58,15 @@
                                 修改
                             </button>
                         </a>
-
+                    {% if entity.enabled  %}
+                        <a href="{{ path('dash_disable_collocationPlu', { 'id': entity.id }) }}">
+                            <button class="btn btn-default">禁用</button>
+                        </a>
+                    {% else %}
+                        <a href="{{ path('dash_enable_collocationPlu', { 'id': entity.id }) }}">
+                            <button class="btn btn-default">启用</button>
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

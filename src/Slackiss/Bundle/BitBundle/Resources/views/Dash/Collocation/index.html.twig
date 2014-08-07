@@ -62,11 +62,11 @@
                     {% endif %}
 
                     {% if entity.enabled  %}
-                        <a href="{{ path('dash_disable', { 'id': entity.id }) }}">
+                        <a href="{{ path('dash_disable_collocation', { 'id': entity.id }) }}">
                             <button class="btn btn-default">禁用</button>
                         </a>
                     {% else %}
-                        <a href="{{ path('dash_enable', { 'id': entity.id }) }}">
+                        <a href="{{ path('dash_enable_collocation', { 'id': entity.id }) }}">
                             <button class="btn btn-default">启用</button>
                         </a>
                     {% endif %}

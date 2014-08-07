@@ -116,6 +116,65 @@ class CollocationPluController extends Controller
         );
     }
 
+
+    /**
+     *enable a Collocation entity.
+     *
+     * @Route("/enable/{id}", name="dash_enable_collocationPlu")
+     * @Method("GET")
+     */
+    public function enableAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('SlackissBitBundle:CollocationPlu')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('没找到这个搭配元素.');
+        }
+        $current = $this->get('security.context')->getToken()->getUser();
+
+
+        if($current->getId()!==$entity->getMember()->getId()){
+            return  $this->redirect($this->generateUrl('dash_collocationPlu'));
+        }
+        $entity->setEnabled(true);
+        $entity->setModified( new \DateTime());
+        $em->flush();
+        return $this->redirect($this->generateUrl('dash_collocationPlu'));
+    }
+    /**
+     *enable a Collocation entity.
+     *
+     * @Route("/disable/{id}", name="dash_disable_collocationPlu")
+     * @Method("GET")
+     */
+
+
+    public function disableAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('SlackissBitBundle:CollocationPlu')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('没找到这个搭配元素.');
+        }
+        $current = $this->get('security.context')->getToken()->getUser();
+
+
+        if($current->getId()!==$entity->getMember()->getId()){
+            return  $this->redirect($this->generateUrl('dash_collocationPlu'));
+        }
+
+        $entity->setEnabled(false);
+        $entity->setModified( new \DateTime());
+        $em->flush();
+        return $this->redirect($this->generateUrl('dash_collocationPlu'));
+    }
+
+
+
     /**
      * Finds and displays a CollocationPlu entity.
      *

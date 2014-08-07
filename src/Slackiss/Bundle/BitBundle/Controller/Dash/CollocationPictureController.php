@@ -114,6 +114,63 @@ class CollocationPictureController extends Controller
         );
     }
 
+
+    /**
+     *enable a Collocation entity.
+     *
+     * @Route("/enable/{id}", name="dash_enable_collocationPicture")
+     * @Method("GET")
+     */
+    public function enableAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('SlackissBitBundle:CollocationPicture')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('没找到这个搭配图片.');
+        }
+
+        $current = $this->get('security.context')->getToken()->getUser();
+        if($current->getId()!==$entity->getMember()->getId()){
+            return  $this->redirect($this->generateUrl('dash_collocationPicture'));
+        }
+
+        $entity->setEnabled(true);
+        $entity->setModified( new \DateTime());
+        $em->flush();
+        return $this->redirect($this->generateUrl('dash_collocationPicture'));
+    }
+    /**
+     *enable a Collocation entity.
+     *
+     * @Route("/disable/{id}", name="dash_disable_collocationPicture")
+     * @Method("GET")
+     */
+
+
+    public function disableAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('SlackissBitBundle:CollocationPicture')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('没找到这个搭配图片.');
+        }
+
+        $current = $this->get('security.context')->getToken()->getUser();
+        if($current->getId()!==$entity->getMember()->getId()){
+            return  $this->redirect($this->generateUrl('dash_collocationPicture'));
+        }
+
+        $entity->setEnabled(false);
+        $entity->setModified( new \DateTime());
+        $em->flush();
+        return $this->redirect($this->generateUrl('dash_collocationPicture'));
+    }
+
+
     /**
      * Finds and displays a CollocationPicture entity.
      *

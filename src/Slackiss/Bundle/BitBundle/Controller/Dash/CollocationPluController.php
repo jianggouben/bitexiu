@@ -86,7 +86,9 @@ class CollocationPluController extends Controller
      */
     private function createCreateForm(CollocationPlu $entity)
     {
-        $form = $this->createForm(new CollocationPluType(), $entity, array(
+        $current = $this->get('security.context')->getToken()->getUser();
+
+        $form = $this->createForm(new CollocationPluType(true,$current), $entity, array(
             'action' => $this->generateUrl('dash_collocationPlu_create'),
             'method' => 'POST',
         ));
@@ -249,7 +251,9 @@ class CollocationPluController extends Controller
     */
     private function createEditForm(CollocationPlu $entity)
     {
-        $form = $this->createForm(new CollocationPluType(true), $entity, array(
+        $current = $this->get('security.context')->getToken()->getUser();
+
+        $form = $this->createForm(new CollocationPluType(true,$current), $entity, array(
             'action' => $this->generateUrl('dash_collocationPlu_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

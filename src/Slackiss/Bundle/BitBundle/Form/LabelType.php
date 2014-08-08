@@ -5,6 +5,8 @@ namespace Slackiss\Bundle\BitBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Type;
 
 class LabelType extends AbstractType
 {
@@ -14,6 +16,7 @@ class LabelType extends AbstractType
     {
         $this->isEdit = $isEdit;
     }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -40,14 +43,18 @@ class LabelType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'constraints' => array(
+                    new NotBlank(),
+                    new Type(array('type' => 'numeric')),
+                )
             ])
             ->add('html', 'text', array(
                 'label' => 'HTML',
-                    'required' => false,
-                    'attr' => [
-                    'class'=> 'form-control'
-                    ]
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ))
             ->add('description', 'textarea', [
                 'label' => '说明',

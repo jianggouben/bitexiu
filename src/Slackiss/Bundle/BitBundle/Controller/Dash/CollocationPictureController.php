@@ -84,7 +84,9 @@ class CollocationPictureController extends Controller
      */
     private function createCreateForm(CollocationPicture $entity)
     {
-        $form = $this->createForm(new CollocationPictureType(), $entity, array(
+        $current = $this->get('security.context')->getToken()->getUser();
+
+        $form = $this->createForm(new CollocationPictureType(false,$current), $entity, array(
             'action' => $this->generateUrl('dash_collocationPicture_create'),
             'method' => 'POST',
         ));
@@ -240,7 +242,9 @@ class CollocationPictureController extends Controller
     */
     private function createEditForm(CollocationPicture $entity)
     {
-        $form = $this->createForm(new CollocationPictureType(true), $entity, array(
+        $current = $this->get('security.context')->getToken()->getUser();
+
+        $form = $this->createForm(new CollocationPictureType(true,$current), $entity, array(
             'action' => $this->generateUrl('dash_collocationPicture_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class LabelRepository extends EntityRepository
 {
+    public function getSelectList()
+    {
+
+        $collocations = $this->createQueryBuilder('a')
+            ->orderBy('a.modified','desc')
+            ->where('a.status = :status')
+            ->andWhere('a.enabled = :enabled')
+            ->setParameters(array('status'=>true,'enabled'=>true));
+
+        return $collocations;
+    }
 }

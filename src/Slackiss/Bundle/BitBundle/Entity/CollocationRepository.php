@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class CollocationRepository extends EntityRepository
 {
+    public function getSelectList($current)
+    {
+
+        $collocations = $this->createQueryBuilder('a')
+            ->orderBy('a.modified','desc')
+            ->where('a.status = :status')
+            ->andWhere('a.enabled = :enabled')
+            ->andWhere('a.member = :member')
+            ->setParameters(array('status'=>true,'enabled'=>true,'member'=>$current->getId()));
+
+          return $collocations;
+    }
 }

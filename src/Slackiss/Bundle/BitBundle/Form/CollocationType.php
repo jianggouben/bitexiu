@@ -5,7 +5,7 @@ namespace Slackiss\Bundle\BitBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
+use Slackiss\Bundle\BitBundle\Entity\LabelRepository;
 class CollocationType extends AbstractType
 {
 
@@ -67,6 +67,20 @@ class CollocationType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('labels', 'entity', array(
+                    'label' => '所属标签',
+                    'required' => true,
+                    'class' => 'SlackissBitBundle:Label',
+                    'property' => 'name',
+                    'multiple' => true,
+                    'attr' => [
+                        'class' => 'form-control'
+                    ],
+                    'query_builder' => function (LabelRepository $r) {
+                            return $r->getSelectList();
+                        }
+                )
+            )
             ->add('description', 'textarea', [
                 'label' => '说明',
                 'required' => false,

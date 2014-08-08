@@ -31,9 +31,9 @@ class CollocationController extends Controller
 
         $page = $request->query->get('page',1);
         $repo = $em->getRepository('SlackissBitBundle:Collocation');
-        $current = $this->get('security.context')->getToken()->getUser();
-       
-            $query = $repo->createQueryBuilder('a')
+       $current = $this->get('security.context')->getToken()->getUser();
+
+        $query = $repo->createQueryBuilder('a')
                 ->orderBy('a.state','desc')
                 ->where('a.status = :status')
                 ->andWhere('a.member = :member')

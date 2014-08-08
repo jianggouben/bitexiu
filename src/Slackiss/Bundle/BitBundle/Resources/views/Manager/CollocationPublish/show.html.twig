@@ -1,0 +1,172 @@
+{% extends "SlackissBitBundle:layout:layout.html.twig" %}
+
+{% block title %}查看搭配-{{ entity.name }}{% endblock %}
+
+{% block body -%}
+    <h2>查看搭配:{{ entity.name }}</h2>
+
+    <table class="table  table-striped table-hover table-condensed">
+        <tbody>
+        <tr>
+            <th>编号</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>名称</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+
+        <tr>
+            <th>价格</th>
+            <td>{{ entity.price }}</td>
+        </tr>
+
+        <tr>
+            <th>是否为热点</th>
+            <td>{{ entity.hot?'是':'否' }}</td>
+        </tr>
+
+        <tr>
+            <th>可用性</th>
+            <td>{{ entity.enabled?'可用':'禁用' }}</td>
+        </tr>
+
+        <tr>
+            <th>状态</th>
+            <td>
+                {{ entity.state=='draft'?'草稿': entity.state=='published'?'发布':'确认' }}
+            </td>
+
+        </tr>
+        <tr>
+            <th>图片</th>
+            <td>
+                {% if entity.image %}
+
+                    <a href="{{ vich_uploader_asset(entity,'attach') }}" target="_blank">
+                        <img src="{{ vich_uploader_asset(entity,'attach')|imagine_filter('thumbnail') }}"/>
+                    </a>
+
+
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>描述</th>
+            <td>{{ entity.description }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    {% if collocationPlus is defined and collocationPlus|length > 0 %}
+
+        <table class="table  table-striped table-hover table-condensed">
+            <caption>关联的搭配元素</caption>
+            <thead>
+            <tr>
+                <th>编号</th>
+                <th>名字</th>
+
+                <th>价格</th>
+                <th>权重</th>
+                <th>可用性</th>
+                <th>图片</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in collocationPlus %}
+
+                {% if entity.enabled %}
+                    <tr>
+                {% else %}
+                    <tr class="warning">
+                {% endif %}
+                <td>{{ entity.id }}</a></td>
+                <td>{{ entity.name }}</td>
+
+                <td>{{ entity.price }}</td>
+                <td>{{ entity.sequence }}</td>
+
+                <td>{{ entity.enabled?'可用':'禁用' }}</td>
+
+                <td>
+                    {% if entity.image %}
+
+                        <a href="{{ vich_uploader_asset(entity,'attach') }}" target="_blank">
+                            <img src="{{ vich_uploader_asset(entity,'attach')|imagine_filter('thumbnail_mini') }}"/>
+                        </a>
+
+
+                    {% endif %}
+                </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
+
+    {% if collocationPictures is defined and collocationPictures|length > 0 %}
+
+
+        <table class="table  table-striped table-hover table-condensed">
+            <caption>关联的搭配图片</caption>
+            <thead>
+
+            <tr>
+
+                    <th>编号</th>
+                    <th>名称</th>
+
+                    <th>权重</th>
+                    <th>可用性</th>
+                    <th>图片</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in collocationPictures %}
+            {% if entity.enabled %}
+            <tr>
+                {% else %}
+            <tr class="warning">
+                {% endif %}
+                <td><a href={{ entity.id }}</td>
+                <td>{{ entity.name }}</td>
+
+                <td>{{ entity.sequence }}</td>
+                <td>{{ entity.enabled?'可用':'禁用' }}</td>
+                <td>
+
+                    {% if entity.image %}
+
+                        <a href="{{ vich_uploader_asset(entity,'attach') }}" target="_blank">
+                            <img src="{{ vich_uploader_asset(entity,'attach')|imagine_filter('thumbnail_mini') }}"/>
+                        </a>
+
+
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+
+    <div class="clearfix">
+        <div class="pull-left">
+
+            <a href="{{ path('manager_collocation') }}">
+                <button class="btn btn-primary">返回</button>
+            </a>
+        </div>
+        <div class="pull-right">
+            {{ form(delete_form) }}
+        </div>
+    </div>
+
+{% endblock %}

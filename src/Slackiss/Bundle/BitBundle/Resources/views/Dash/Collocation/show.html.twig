@@ -28,7 +28,15 @@
 
         <tr>
             <th>可用性</th>
-            <td>{{ entity.enabled?'可用':'禁用' }}</td>
+            <td>
+                {% if entity.enabled %}
+                <span class="label label-success">
+                    {% else %}
+                    <span class="label label-warning">
+                    {% endif %}
+                        {{ entity.enabled?'可用':'禁用' }}
+                </span>
+            </td>
         </tr>
 
         <tr>
@@ -89,7 +97,16 @@
                 <td>{{ entity.price }}</td>
                 <td>{{ entity.sequence }}</td>
 
-                <td>{{ entity.enabled?'可用':'禁用' }}</td>
+                <td>
+                    {% if entity.enabled %}
+                    <span class="label label-success">
+                    {% else %}
+                        <span class="label label-warning">
+                    {% endif %}
+                            {{ entity.enabled?'可用':'禁用' }}
+                </span>
+                </td>
+
 
                 <td>
                     {% if entity.image %}
@@ -119,12 +136,12 @@
 
             <tr>
 
-                    <th>编号</th>
-                    <th>名称</th>
+                <th>编号</th>
+                <th>名称</th>
 
-                    <th>权重</th>
-                    <th>可用性</th>
-                    <th>图片</th>
+                <th>权重</th>
+                <th>可用性</th>
+                <th>图片</th>
 
             </tr>
             </thead>
@@ -139,7 +156,17 @@
                 <td>{{ entity.name }}</td>
 
                 <td>{{ entity.sequence }}</td>
-                <td>{{ entity.enabled?'可用':'禁用' }}</td>
+                <td>
+                    {% if entity.enabled %}
+                    <span class="label label-success">
+                    {% else %}
+                        <span class="label label-warning">
+                    {% endif %}
+                            {{ entity.enabled?'可用':'禁用' }}
+                </span>
+                </td>
+
+
                 <td>
 
                     {% if entity.image %}

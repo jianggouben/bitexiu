@@ -16,7 +16,7 @@ class LabelRepository extends EntityRepository
     {
 
         $collocations = $this->createQueryBuilder('a')
-            ->orderBy('a.modified','desc')
+            ->orderBy('a.sequence','desc')
             ->where('a.status = :status')
             ->andWhere('a.enabled = :enabled')
             ->setParameters(array('status'=>true,'enabled'=>true));

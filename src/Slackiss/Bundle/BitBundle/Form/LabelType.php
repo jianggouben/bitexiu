@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Type;
-
+use Slackiss\Bundle\BitBundle\Entity\LabelTypeRepository;
 class LabelType extends AbstractType
 {
     protected $isEdit;
@@ -31,6 +31,20 @@ class LabelType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('labelType', 'entity', array(
+                    'label' => '类型',
+                    'required' => false,
+                    'class' => 'SlackissBitBundle:LabelType',
+                    'property' => 'name',
+                    'multiple' => false,
+                    'attr' => [
+                        'class' => 'form-control'
+                    ],
+                    'query_builder' => function (LabelTypeRepository $r) {
+                            return $r->getSelectList();
+                        }
+                )
+            )
             ->add('name', 'text', [
                 'label' => '名称',
                 'required' => true,

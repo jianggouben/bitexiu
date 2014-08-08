@@ -26,7 +26,16 @@
 
                 <td>{{ entity.hot?'是':'否' }}</td>
 
-                <td>{{ entity.enabled?'可用':'禁用' }}</td>
+                <td>
+                    {% if entity.enabled %}
+                    <span class="label label-success">
+                    {% else %}
+                        <span class="label label-warning">
+                    {% endif %}
+                            {{ entity.enabled?'可用':'禁用' }}
+                </span>
+                </td>
+
 
                 <td>
                     {{ entity.state=='draft'?'草稿': entity.state=='published'?'发布':'确认' }}

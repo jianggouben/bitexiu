@@ -31,7 +31,16 @@
                         </a>
                     {% endif %}
                 </td>
-                <td>{{ entity.enabled?'可用':'禁用' }}</td>
+                <td>
+                    {% if entity.enabled %}
+                    <span class="label label-success">
+                    {% else %}
+                        <span class="label label-warning">
+                    {% endif %}
+                            {{ entity.enabled?'可用':'禁用' }}
+                </span>
+                </td>
+
                 <td>{{ entity.description }}</td>
 
 
